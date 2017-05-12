@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<style>
+    #video
+    {
+        border-style: groove;
+        position: relative;
+    }
+
+    #image {
+        position: absolute;
+        z-index: 1;
+        height: 50px;
+        width: 50px;
+    }
+
+    #src
+    {
+        height: 480px;
+        width: 640px;
+    }
+
+    #canvas
+    {
+        height: 480px;
+        width: 640px;
+    }
+
+</style>
+<body>
+
+
+
+<div id="video" >
+
+
+    <img id="image" src="../img/42.png">
+
+    <video id="src" height="480" width="640" autoplay> </video>
+
+</div>
+<button id="snap">Snap Photo</button>
+
+<canvas id="canvas"></canvas>
+
+<script>
+
+    var ball = document.getElementById('image');
+    var video = document.getElementById('video');
+    var src = document.getElementById('src');
+
+    ball.onmousedown = function(e) {
+
+         moveAt(e);
+
+        function moveAt(e) {
+
+            var left =  e.pageX - ball.offsetWidth / 2 - video.getBoundingClientRect().left  +'px';
+            var top = e.pageY - ball.offsetHeight / 2 - video.getBoundingClientRect().top + 'px';
+
+            var intTop = parseInt(top);
+            var intLeft = parseInt(left);
+
+            if ( intTop < video.offsetHeight - ball.offsetHeight &&
+                 intTop > 0 &&
+                 intLeft < video.offsetWidth - ball.offsetWidth &&
+                 intLeft > 0)
+            {
+                ball.style.left = left;
+                ball.style.top = top;
+            }
+        }
+
+        document.onmousemove = function(e) {
+            moveAt(e);
+        };
+
+        ball.onmouseup = function() {
+            document.onmousemove = null;
+            ball.onmouseup = null;
+        };
+
+        ball.ondragstart = function() {
+            return false;
+        };
+    };
+
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            src.src = window.URL.createObjectURL(stream);
+            src.play();
+        });
+    }
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    src = document.getElementById('src');
+    src.play();
+
+
+    document.getElementById("snap").addEventListener("click", function() {
+        context.drawImage(src, 0, 0);
+    });
+
+</script>
+
+</body>
+</html>
