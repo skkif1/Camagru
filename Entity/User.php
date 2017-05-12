@@ -6,16 +6,35 @@ class User
     private $email;
     private $password;
     private $login;
+    private $confirm;
+    private $hash;
 
-    public function __construct($email, $password, $login)
+    public function __construct($email, $password, $login, $id = null)
     {
-        echo $email . "<br>";
-        echo $password . "<br>";
-        echo $login . "<br>";
-
         $this->email = $email;
+        $this->id = $id;
         $this->password = $password;
         $this->login = $login;
+    }
+
+    public function getConfirm()
+    {
+        return $this->confirm;
+    }
+
+    public function setConfirm($confirm)
+    {
+        $this->confirm = intval($confirm);
+    }
+
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
     }
 
     public function getId()
