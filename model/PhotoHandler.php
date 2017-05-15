@@ -42,7 +42,7 @@ class PhotoHandler
     public function checkLogin()
     {
         if (isset($_SESSION['login']))
-            return "true";
-        return "false";
+            return 1;
+        return 0;
     }
 }

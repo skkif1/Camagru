@@ -105,8 +105,8 @@ class Authorization
 
     public function logout()
     {
-        echo "recive";
-        var_dump($_GET);
+        unset($_SESSION['login']);
+        return 'true';
     }
 
     private function hash($password, $pass = 0)
