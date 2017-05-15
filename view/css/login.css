@@ -1,0 +1,26 @@
+#form
+{
+    border-style: dotted;
+    background-color: grey;
+}
+
+#success_login
+{
+    display: none;
+    border-style: outset;
+}
+
+.signUp
+{
+    display: none;
+}
+
+.change
+{
+    display: none;
+}
+
+.login
+{
+    display: block;
+}
