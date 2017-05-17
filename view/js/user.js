@@ -12,6 +12,12 @@ window.onload = function () {
             video.play();
         });
     }
+
+
+    var templateContents = document.getElementsByClassName('template_menu');
+
+    for (var i = 0; i < templateContents.length; i++)
+        templateContents[i].addEventListener('click', display);
 };
 
 
@@ -98,17 +104,18 @@ function addGalleryPhoto(id, src)
     var photo_gallery = document.getElementById('photo_gallery');
     var image_wrapper = document.createElement('div');
     var photo = document.createElement('img');
-    var dell_button = document.createElement('input');
+    var dell_button = document.createElement('div');
 
     image_wrapper.setAttribute('class', 'gallery_image');
     image_wrapper.setAttribute('id', id);
     photo.setAttribute('src', src);
     dell_button.setAttribute('class', 'dell_button');
-    dell_button.setAttribute('type', 'button');
+    dell_button.innerHTML = 'X';
     dell_button.addEventListener('click', removeImage);
     photo_gallery.insertBefore(image_wrapper, photo_gallery.firstChild);
-    image_wrapper.appendChild(photo);
     image_wrapper.appendChild(dell_button);
+    image_wrapper.appendChild(photo);
+
 }
 
 function savePhoto()

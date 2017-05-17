@@ -1,6 +1,4 @@
 
-var status = 1;
-
 function validateSend()
 {
     var login = '^[a-z0-9_-]{5,15}$';
@@ -29,9 +27,13 @@ function validateSend()
             failSignUp("pussword_dup_status", "check password");
         }
     }
-    if (status == 1)
-        sendRequest();
-    status = 1;
+    if (window.statu == 1)
+    {
+        sendRequest(window.statu);
+        if (window.statu == 0)
+            return ;
+    }
+    window.statu = 1;
 }
 
 
@@ -45,8 +47,8 @@ function failSignUp(statusId, src)
     {
         elem.style.display = "none";
     }
-    setTimeout(hide, 4000);
-    status = 0;
+    setTimeout(hide, 5000);
+    window.statu = 0;
 }
 
 function successSignUp(src)

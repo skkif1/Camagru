@@ -6,6 +6,9 @@ window.onload = function()
     document.getElementById("toChange").addEventListener('click', toChange);
     document.getElementById("toReset").addEventListener('click', toReset);
 
+    checkLogin();
+
+    window.statu = 1;
 };
 
 var request;
@@ -28,7 +31,6 @@ function sendAjax(dataSend, callback)
     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     request.send(JSON.stringify(data));
 }
-
 
 
 function signUpUser()
@@ -88,7 +90,7 @@ function getFormData()
 
 function toSignUp()
 {
-    document.getElementById("submit").value =  "SignUp";
+    document.getElementById("submit").value =  "signUp";
     var hiden = document.getElementsByClassName("signUp");
     var change = document.getElementsByClassName("change");
 
@@ -186,7 +188,7 @@ function toReset()
     for (var i = 0; i < res.length; i++)
     {
         var elem = ch[i];
-        elem.style.display = "block";
+        elem.style.display = "flex";
     }
 }
 

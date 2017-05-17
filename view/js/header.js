@@ -1,14 +1,15 @@
+
 function toAcount()
 {
     var data = {
-        action : "check"
+        action : "Check"
     };
     sendAjaxUser(data, function () {
 
         if (this.readyState == 4 && this.status == 200)
         {
             var resp = JSON.parse(this.responseText);
-            if (resp.response == 'true')
+            if (resp.response != false)
                 window.location.href = '/Camagru/user';
             else
             {
@@ -34,6 +35,36 @@ function logout() {
     };
     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     request.send(JSON.stringify(data));
+    checkLogin();
+}
+
+function checkLogin()
+{
+    data = {
+        name:'Check'
+    };
+
+    request = new XMLHttpRequest();
+    request.open('POST', '/Camagru/login');
+    request.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            var server = JSON.parse(this.responseText);
+            var logout = document.getElementById('logout');
+            var acount = document.getElementById('acount');
+
+            if (server.response != 'false')
+            {
+                acount.innerHTML = server.response;
+            }else
+            {
+                logout.style.display = 'none';
+                acount.style.display = 'none';
+            }
+        }
+    };
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send(JSON.stringify(data));
 }
 
 function sendAjaxUser(dataSend, callback,)
@@ -44,4 +75,9 @@ function sendAjaxUser(dataSend, callback,)
     request.onreadystatechange = callback;
     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     request.send(JSON.stringify(data));
+}
+
+function toMain()
+{
+    window.location.href = '/Camagru/';
 }

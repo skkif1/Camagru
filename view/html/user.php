@@ -2,87 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-<style>
-    #video_screen
-    {
-        height: 480px;
-        width: 640px;
-        border-style: groove;
-        position: relative;
-    }
 
-    #template
-    {
-        position: absolute;
-        z-index: 1;
-        height: 50px;
-        width: 50px;
-    }
+    <title>Make your photo</title>
 
-    #video
-    {
-        height: 480px;
-        width: 640px;
-    }
+    <link rel='stylesheet' type='text/css' href="view/css/login.css">
+    <link rel='stylesheet' type='text/css' href="view/css/header.css">
+    <link rel='stylesheet' type='text/css' href="view/css/footer.css">
+    <link rel='stylesheet' type='text/css' href="view/css/user.css">
 
-    #video_screen
-    {
-        height: 480px;
-        width: 640px;
-        position: relative;
-    }
+    <script src="view/js/user.js"></script>
+    <script src="view/js/category.js"></script>
 
-    #canvas
-    {
-        height: 480px;
-        width: 640px;
-    }
-
-    #temp
-    {
-     display: none;
-    }
-
-    .dell_button
-    {
-        position: absolute;
-    }
-
-
-</style>
-    <script src="../js/user.js"></script>
 </head>
 <body>
 
-<div id="video_frame">
-    <div id="video_screen">
-        <img id="template">
-        <video poster="../../img/no-photo.png" id="video" width="640" height="480" autoplay></video>
+<?php include root . "/view/html/header.php" ?>
+
+<div id="main_wrapper">
+
+
+    <div id="video_content">
+
+        <div id="video_frame">
+
+            <div id="video_screen">
+
+                <img id="template">
+
+                <video poster="img/no-photo.png" id="video" width="640" height="480" autoplay></video>
+
+            </div>
+
+            <div id="video_buttons">
+
+                <div onclick="makePhoto()">snap photo</div>
+
+                <div onclick="backToVideo()" >back to camera</div>
+
+                <div onclick="getUploadButton()">upload foto</div>
+
+                <input id="upload_button" type="file" value="upload foto" onchange="placeImage(this)">
+
+            </div>
+
+        </div>
+
+
+        <div id="preview_frame">
+
+            <canvas id="canvas" width="640" height="480"></canvas>
+
+            <input type="button" onclick="savePhoto()" placeholder="save photo">
+
+        </div>
     </div>
-    <input type="button" onclick="makePhoto()" value="snap photo">
-    <input type="button" onclick="backToVideo()" value="back to camera">
 
-    <div id="upload">
-        <input id="uploud_button" type="file" value="upload foto" onchange="placeImage(this)">
+    <div id="template_gallery">
+        <div class="template_menu" id="animals">animals</div>
+        <div class="category_content" id="category_animals">
+            <img src="img/animals/1.png" width="100" height="100">
+            <img src="img/animals/2.png" width="100" height="100">
+        </div>
+        <div class="template_menu" id="drinks">drinks</div>
+        <div class="category_content" id="category_drinks">
+            <img src="img/drinks/1.png" width="100" height="100">
+            <img src="img/drinks/2.png" width="100" height="100">
+            <img src="img/drinks/3.png" width="100" height="100">
+            <img src="img/drinks/4.png" width="100" height="100">
+            <img src="img/drinks/5.png" width="100" height="100">
+        </div>
+        <div class="template_menu" id="food">food</div>
+        <div class="category_content" id="category_food">
+            <img src="img/food/1.png" width="100" height="100">
+            <img src="img/food/2.png" width="100" height="100">
+        </div>
+        <div class="template_menu" id="other">other</div>
+        <div class="category_content" id="category_other">
+            <img src="img/other/1.png" width="100" height="100">
+        </div>
+
     </div>
 
+    <div id="photo_gallery">
+
+    </div>
 </div>
 
-
-
-<div id="preview_frame">
-    <canvas id="canvas" width="640" height="480"></canvas>
-    <input type="button" onclick="savePhoto()" placeholder="save photo">
-</div>
-
-
-<div id="template_gallery">
-    <img src="../../img/42.png" onclick="addTemplate(this)">
-</div>
-
-<div id="photo_gallery">
-</div>
+<?php include root . "/view/html/footer.php" ?>
 
 
 </body>

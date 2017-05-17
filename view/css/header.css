@@ -1,0 +1,35 @@
+header{
+    display: flex;
+    justify-content: center;
+    max-height: 80px;
+}
+
+header img {
+    max-height:100%;
+    max-width:15%;
+}
+
+
+#nav-bar
+{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navigator
+{
+    display: flex;
+    flex-basis: 160px;
+    font-size: 20px;
+    background: #fff;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#logout, #main_page
+{
+    color: rgb(255,255,255);
+    background-color: #3776EA;
+}
