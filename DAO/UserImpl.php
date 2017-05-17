@@ -17,13 +17,13 @@ class UserImpl implements UserDao
 
     public function getUserbyId($Id)
     {
-        $stm = $this->connection->prepare("select * from camagru.user");
+        $stm = $this->connection->prepare("select * from user");
         $stm->execute();
     }
 
     public function getUserbyEmail($email)
     {
-        $stm = $this->connection->prepare("select * from camagru.user WHERE email = ?");
+        $stm = $this->connection->prepare("select * from user WHERE email = ?");
         $stm->execute(array($email));
         if (!$rs = $stm->fetch(PDO::FETCH_ASSOC))
             throw new InvalidArgumentException("Invalid email");
@@ -35,7 +35,7 @@ class UserImpl implements UserDao
 
     public function getUserbyLogin($login)
     {
-        $stm = $this->connection->prepare("select * from camagru.user WHERE login = ?");
+        $stm = $this->connection->prepare("select * from user WHERE login = ?");
         $stm->execute(array($login));
         if (!$rs = $stm->fetch(PDO::FETCH_ASSOC))
             throw new InvalidArgumentException("Invalid login");
@@ -48,7 +48,7 @@ class UserImpl implements UserDao
     public function saveUser(User $user)
     {
         $stm = $this->connection->prepare(
-                                            "INSERT INTO camagru.user (login, password, email, hash)
+                                            "INSERT INTO user (login, password, email, hash)
                                             VALUES(?, ?, ?, ?)");
         $stm->execute(array($user->getLogin(), $user->getPassword(), $user->getEmail(), $user->getHash()));
     }
@@ -56,7 +56,7 @@ class UserImpl implements UserDao
     public function updateUser(User $user)
     {
         $stm = $this->connection->prepare(
-                                            "UPDATE camagru.user
+                                            "UPDATE user
                                             SET login = ?, password = ?, email = ?, hash = ?, confirm = ?
                                             WHERE id = ?");
         $stm->execute(array($user->getLogin(), $user->getPassword(), $user->getEmail(),

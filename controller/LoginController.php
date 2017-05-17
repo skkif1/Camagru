@@ -15,7 +15,7 @@ class LoginController
         {
             switch ($request['name'])
             {
-                case 'SignUp':
+                case 'signUp':
                     $user = new User($request['email'], $request['password'], $request['login']);
                     $res = $action->signUp($user);
                     $responses = array('response' => $res);
@@ -35,7 +35,10 @@ class LoginController
                 case 'Logout':
                     $responses = $action->logout();
                     $responses = array('response' => $responses);
-                    var_dump($responses);
+                    break ;
+                case 'Check':
+                    $responses = $action->IsLogged();
+                    $responses = array('response' => $responses);
                     break ;
                 default:
                     $responses = array('response' => '404 Login');

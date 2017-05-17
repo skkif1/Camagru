@@ -16,7 +16,7 @@ class PhotoImpl implements PhotoDao
 
     public function savePhoto(Photo $photo)
     {
-        $stm = $this->connection->prepare("INSERT INTO camagru.photo (src, user_id) VALUE (?, ?)");
+        $stm = $this->connection->prepare("INSERT INTO photo (src, user_id) VALUE (?, ?)");
         $stm->execute(array($photo->getSrc(), $photo->getUserId()));
         return $this->connection->lastInsertId();
     }

@@ -109,6 +109,15 @@ class Authorization
         return 'true';
     }
 
+    public function IsLogged()
+    {
+        if (isset($_SESSION['login']))
+        {
+            return $_SESSION['login']->getLogin();
+        }
+        return "false";
+    }
+
     private function hash($password, $pass = 0)
     {
 
