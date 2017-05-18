@@ -38,7 +38,10 @@ class PhotoMakerController
         }else
         {
             if ($action->checkLogin())
+            {
                 require_once(root . "/view/html/user.php");
+                return ;
+            }
             require_once (root . '/view/html/error.php');
         }
         if ($responses)
