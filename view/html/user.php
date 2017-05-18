@@ -12,14 +12,14 @@
 
     <script src="view/js/user.js"></script>
     <script src="view/js/category.js"></script>
+    <script src="view/js/template_nav.js"></script>
 
 </head>
 <body>
 
 <?php include root . "/view/html/header.php" ?>
 
-<div id="main_wrapper">
-
+<div id="wrapper">
 
     <div id="video_content">
 
@@ -29,17 +29,25 @@
 
                 <img id="template">
 
-                <video poster="img/no-photo.png" id="video" width="640" height="480" autoplay></video>
+                <video poster="img/no-photo.png" id="video" autoplay></video>
 
             </div>
 
+            <div id="template_nav">
+                <div id="height_up" onclick="changeHeight(1)">up</div>
+                <div id="height_down" onclick="changeHeight(2)">down</div>
+                <div id="width_up" onclick="changeWidth(1)">up</div>
+                <div id="width_down" onclick="changeWidth(2)">down</div>
+                <div id="hide" onclick="hideTemplate()">hide</div>
+            </div>
             <div id="video_buttons">
 
-                <div onclick="makePhoto()">snap photo</div>
+                <div class="video_nav" id="snap" onclick="error()" >snap photo</div>
+                <div id="template_error">You need choose template image first</div>
 
-                <div onclick="backToVideo()" >back to camera</div>
+                <div class="video_nav" id="back" >back to camera</div>
 
-                <div onclick="getUploadButton()">upload foto</div>
+                <div class="video_nav" onclick="getUploadButton()">upload foto</div>
 
                 <input id="upload_button" type="file" value="upload foto" onchange="placeImage(this)">
 
@@ -52,7 +60,7 @@
 
             <canvas id="canvas" width="640" height="480"></canvas>
 
-            <input type="button" onclick="savePhoto()" placeholder="save photo">
+            <div class="preview_nav" id="send_photo">save photo</div>
 
         </div>
     </div>
@@ -60,25 +68,25 @@
     <div id="template_gallery">
         <div class="template_menu" id="animals">animals</div>
         <div class="category_content" id="category_animals">
-            <img src="img/animals/1.png" width="100" height="100">
-            <img src="img/animals/2.png" width="100" height="100">
+            <img class="template_img" src="img/animals/1.png" width="100" height="100">
+            <img class="template_img" src="img/animals/2.png" width="100" height="100">
         </div>
         <div class="template_menu" id="drinks">drinks</div>
         <div class="category_content" id="category_drinks">
-            <img src="img/drinks/1.png" width="100" height="100">
-            <img src="img/drinks/2.png" width="100" height="100">
-            <img src="img/drinks/3.png" width="100" height="100">
-            <img src="img/drinks/4.png" width="100" height="100">
-            <img src="img/drinks/5.png" width="100" height="100">
+            <img class="template_img" src="img/drinks/1.png" width="100" height="100">
+            <img class="template_img" src="img/drinks/2.png" width="100" height="100">
+            <img class="template_img" src="img/drinks/3.png" width="100" height="100">
+            <img class="template_img" src="img/drinks/4.png" width="100" height="100">
+            <img class="template_img" src="img/drinks/5.png" width="100" height="100">
         </div>
         <div class="template_menu" id="food">food</div>
         <div class="category_content" id="category_food">
-            <img src="img/food/1.png" width="100" height="100">
-            <img src="img/food/2.png" width="100" height="100">
+            <img class="template_img" src="img/food/1.png" width="100" height="100">
+            <img class="template_img" src="img/food/2.png" width="100" height="100">
         </div>
         <div class="template_menu" id="other">other</div>
         <div class="category_content" id="category_other">
-            <img src="img/other/1.png" width="100" height="100">
+            <img class="template_img" src="img/other/1.png" width="100" height="100">
         </div>
 
     </div>
@@ -87,7 +95,6 @@
 
     </div>
 </div>
-
 <?php include root . "/view/html/footer.php" ?>
 
 

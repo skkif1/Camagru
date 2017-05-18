@@ -1,4 +1,3 @@
-
 window.onload = function () {
     var template = document.getElementById('template');
 
@@ -6,13 +5,17 @@ window.onload = function () {
 
     fillGallery();
     clearPreview();
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
             video.src = window.URL.createObjectURL(stream);
             video.play();
         });
     }
 
+    var templates = document.getElementsByClassName('template_img');
+    for (var i = 0; i < templates.length; i++)
+        templates[i].addEventListener('click', addTemplate);
 
     var templateContents = document.getElementsByClassName('template_menu');
 
@@ -21,23 +24,30 @@ window.onload = function () {
 };
 
 
-function backToVideo()
-{
+function backToVideo() {
     var video = document.getElementById('temp');
     var image = document.getElementById('video');
+    var backToCamera = document.getElementById('back');
 
     video.setAttribute('id', 'video');
     image.setAttribute('id', 'temp');
+    backToCamera.style.opacity = '0.4';
+    backToCamera.removeEventListener('click', backToVideo);
 }
 
-function placeImage(input)
-{
+//upload photo from local
+
+function placeImage(input) {
+    var backToCamera = document.getElementById('back');
     var upload_image = document.createElement('img');
     var video_screen = document.getElementById('video_screen');
     var real_video = document.getElementById('video');
-    var reader  = new FileReader();
+    var reader = new FileReader();
 
-    reader.onload = function(load) {
+    backToCamera.style.opacity = '1';
+    backToCamera.addEventListener('click', backToVideo);
+
+    reader.onload = function (load) {
         real_video.setAttribute('id', 'temp');
         var dataUrl = load.target.result;
         upload_image.src = dataUrl;
@@ -48,26 +58,23 @@ function placeImage(input)
     reader.readAsDataURL(input.files[0]);
 }
 
-function clearPreview()
-{
+function clearPreview() {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var image = document.createElement('img');
     image.src = 'img/no-photo.png';
-    context.drawImage(image, 0,0, parseInt(canvas.width), parseInt(canvas.height));
+    context.drawImage(image, 0, 0, parseInt(canvas.width), parseInt(canvas.height));
 }
 
-function removeImage()
-{
+function removeImage() {
     var parent_id = this.parentElement.id;
     data = {
         action: 'remove',
-        id : parent_id
+        id: parent_id
     };
     sendAjaxUser(data, function () {
 
-        if (this.readyState == 4 && this.status)
-        {
+        if (this.readyState == 4 && this.status) {
             var resp = JSON.parse(this.responseText);
             if (resp.response == 'error')
                 console.log("db Error");
@@ -77,20 +84,16 @@ function removeImage()
     })
 }
 
-function fillGallery()
-{
+function fillGallery() {
     data = {
-        action:'getFotos'
+        action: 'getFotos'
     };
 
     sendAjaxUser(data, function () {
-        if (this.readyState == 4 && this.status == 200)
-        {
+        if (this.readyState == 4 && this.status == 200) {
             var resp = JSON.parse(this.responseText);
-            if (resp.response)
-            {
-                for (var i = 0; i < resp.response.length; i++)
-                {
+            if (resp.response) {
+                for (var i = 0; i < resp.response.length; i++) {
                     var photo = resp.response[i];
                     addGalleryPhoto(photo.id, photo.src)
                 }
@@ -99,8 +102,9 @@ function fillGallery()
     })
 }
 
-function addGalleryPhoto(id, src)
-{
+// add foto to main gallery dynamicly created
+
+function addGalleryPhoto(id, src) {
     var photo_gallery = document.getElementById('photo_gallery');
     var image_wrapper = document.createElement('div');
     var photo = document.createElement('img');
@@ -118,31 +122,31 @@ function addGalleryPhoto(id, src)
 
 }
 
-function savePhoto()
-{
+function savePhoto() {
     var canvas = document.getElementById('canvas');
     var photo = canvas.toDataURL('img/jpeg', 1);
+    var sendPhoto = document.getElementById('send_photo');
 
     data = {
         action: 'save',
         img: photo
     };
 
-    sendAjaxUser(data, function ()
-    {
-        if (this.readyState == 4 && this.status == 200)
-        {
-                var resp = JSON.parse(this.responseText);
-                if (resp.response == 'error')
-                    console.log("db Problem");
+    sendAjaxUser(data, function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var resp = JSON.parse(this.responseText);
+            if (resp.response == 'error')
+                console.log("db Problem");
             addGalleryPhoto(resp.response, photo)
         }
-    })
+    });
+    clearPreview();
+    sendPhoto.removeEventListener('click', savePhoto);
+    sendPhoto.style.opacity = '0.4';
 }
 
 
-function sendAjaxUser(data, callback)
-{
+function sendAjaxUser(data, callback) {
     request = new XMLHttpRequest();
     request.onreadystatechange = callback;
     request.open('POST', '/Camagru/user');
@@ -150,8 +154,8 @@ function sendAjaxUser(data, callback)
     request.send(JSON.stringify(data));
 }
 
-function makePhoto()
-{
+function makePhoto() {
+    var sendPhoto = document.getElementById('send_photo');
     var template = document.getElementById('template');
     var video = document.getElementById('video');
     var canvas = document.getElementById('canvas');
@@ -159,11 +163,12 @@ function makePhoto()
 
     context.drawImage(video, 0, 0, 640, 480);
     context.drawImage(template, parseInt(template.style.left), parseInt(template.style.top),
-                    parseInt(template.width), parseInt(template.height));
+        parseInt(template.width), parseInt(template.height));
+    sendPhoto.addEventListener('click', savePhoto);
+    sendPhoto.style.opacity = '1';
 }
 
-function moveTemplate(event)
-{
+function moveTemplate(event) {
 
     var template = document.getElementById('template');
     var video_frame = document.getElementById('video_screen');
@@ -182,23 +187,26 @@ function moveTemplate(event)
         template.style.top = top;
     }
 
-        document.onmousemove = function (event) {
-            moveTemplate(event);
-        };
+    document.onmousemove = function (event) {
+        moveTemplate(event);
+    };
 
-        template.ondragstart = function () {
-            return false;
-        };
+    template.ondragstart = function () {
+        return false;
+    };
 
-        template.onmouseup = function () {
-            document.onmousemove = null;
-            template.onmouseup = null;
-        };
+    template.onmouseup = function () {
+        document.onmousemove = null;
+        template.onmouseup = null;
+    };
 }
 
-function addTemplate(img)
-{
+function addTemplate(event) {
+    var img = event.target;
     var template = document.getElementById('template');
+    var snap = document.getElementById('snap');
     template.setAttribute('src', img.src);
     template.style.display = 'block';
+    snap.addEventListener('click', makePhoto);
+    snap.style.opacity = '1';
 }

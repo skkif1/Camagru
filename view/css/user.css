@@ -1,85 +1,20 @@
 body
 {
-     background: chartreuse;
-     height: 100%;
+    height: 100%;
 }
 
-#main_wrapper
+#wrapper
 {
-    background: yellow;
+    background:#EDEEF0;
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 2;
 }
-
-#template_gallery
-{
-    width: 15%;
-    order: -1;
-    background: green;
-    margin-left: 3%;
-    display: flex;
-    flex-direction: column;
-}
-
-.template_menu
-{
-    background: #3776EA;
-    width: 100%;
-    text-align: center;
-    color: #ffffff;
-    font-size: 1.5em;
-}
-
-.category_content
-{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.category_content
-{
-    display: none;
-}
-
-#photo_gallery
-{
-    width: 15%;
-    margin-right: 3%;
-    display: flex;
-    flex-direction: column;
-}
-
-#photo_gallery img
-{
-    margin-right: 3%;
-    border: 5px solid #3776EA;
-    padding: 5px;
-    max-width: 100%;
-    max-height: 240px;
-}
-
-.gallery_image
-{
-    position: relative;
-    margin-bottom: 1%;
-}
-
-.dell_button
-{
-    position: absolute;
-    z-index: 1;
-    background: grey;
-    left: 5px;
-    top: 5px;
-    width: 5%;
-    display: none;
-}
-
 
 #video_content
 {
-    flex: 2;
-    background: violet;
+    margin: 2% 0;
+    flex-grow: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,82 +22,160 @@ body
 
 #video_frame
 {
-    background: red;
+    background: white;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+    flex-wrap: wrap;
+    max-width: 640px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+
+}
+
+#preview_frame
+{
+    position: relative;
+    flex-shrink: 1;
+    max-height: 10%;
+}
+#video_screen
+{
+    display: flex;
+    justify-content: center;
+    width: 640px;
+    height: 480px;
+    position: relative;
 }
 
 #video_buttons
 {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    
+    background: #EDEEF0;;
+    width: 100%;
+    padding: 2px;
 }
 
-
-
-#preview_frame
+.video_nav
 {
-    background: grey ;
+    background: #3776EA;
+    text-align: center;
+    width: 100%;
+    margin: 2px 0;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
-
 
 #upload_button
 {
     display: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-#video_screen
+.preview_nav
 {
-    height: 480px;
-    width: 640px;
-    border-style: groove;
+    background: #3776EA;
+    text-align: center;
+    margin: 2px 0;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+#template_gallery
+{
+    margin: 2% 0;
+    margin-left: 1%;
+    border-radius: 5px;
+    background: white;
+    order: -1;
+    flex-basis: 367px;
+    max-height: 1074px;
+    overflow: scroll;
+}
+
+.template_menu
+{
+    background: #3776EA;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.category_content
+{
+    display: none;
+    flex-wrap: wrap;
+}
+
+#photo_gallery
+{
+    margin: 2% 0;
+    margin-right: 1%;
+    background: white;
+    border-radius: 5px;
+    flex-basis: 367px;
+    max-height: 1074px;
+    overflow: scroll;
+}
+
+#photo_gallery img
+{
+    width: 97%;
+    border: 5px solid #3776EA;
+    padding: 5px;
+    margin: 3px;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+}
+
+.gallery_image
+{
     position: relative;
+}
+
+.dell_button
+{
+    position: absolute;
+    color: white;
+    background: #3776EA;
+    margin: 13px;
+    padding: 5px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    display: none;
+}
+
+.dell_button:hover
+{
+    opacity: 0.8;
 }
 
 #template
 {
     position: absolute;
-    z-index: 1;
-    height: 50px;
     width: 50px;
-    background: rebeccapurple;
-}
-
-#video
-{
-    height: 480px;
-    width: 640px;
-}
-
-#video_screen
-{
-    height: 480px;
-    width: 640px;
-    position: relative;
-    background: yellow;
-}
-
-#canvas
-{
-    height: 480px;
-    width: 640px;
+    height:50px;
+    display: none;
 }
 
 #temp
 {
     display: none;
+}
+
+#template_error
+{
+    display: none;
+}
+
+#snap
+{
+    opacity: 0.4;
+}
+
+#send_photo
+{
+    opacity: 0.4;
+}
+
+#back
+{
+    opacity: 0.4;
 }

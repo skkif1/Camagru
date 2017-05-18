@@ -18,7 +18,6 @@ function hide(event)
     category.addEventListener('click', display);
 }
 
-// hide upload button
 
 function getUploadButton()
 {
