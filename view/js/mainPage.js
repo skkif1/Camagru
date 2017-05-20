@@ -3,6 +3,8 @@ window.onload = function () {
     placePosts();
 };
 
+var comment_display = 0;
+
 function sendMessage()
 {
     var post = document.getElementById(this.parentNode.parentNode.id);
@@ -30,6 +32,7 @@ function sendMessage()
                 var addButton = comment.parentNode.getElementsByClassName('add_comment')[0];
                 addButton.style.display = 'block';
                 comment.parentNode.removeChild(comment);
+                comment_display = 0;
             }
     });
 }
@@ -85,7 +88,9 @@ function addComment(post, message, login)
     var comment_wrapper = document.createElement('div');
 
     user.innerHTML = login;
+    user.className = 'login';
     comment.innerHTML = message;
+    comment.className = 'message';
     comment_wrapper.appendChild(user);
     comment_wrapper.appendChild(comment);
     var comments_section = post.getElementsByClassName('comment_section')[0];
@@ -95,31 +100,45 @@ function addComment(post, message, login)
 function postComment(event)
 {
     var wrapper = document.createElement('div');
-    var post = document.getElementById(event.target.parentNode.id);
-    var input = document.createElement('input');
+    var post = document.getElementById(event.target.parentNode.parentNode.id);
+    var input = document.createElement('textarea');
     var send = document.createElement('input');
+    var hide = document.createElement('input');
 
+    if (comment_display == 1)
+        return ;
+    comment_display = 1;
     send.type = 'button';
     send.value = 'send..';
+    hide.type = 'button';
+    hide.value = 'hide';
+
     send.addEventListener('click', sendMessage);
-    input.type = 'textarea';
+    hide.addEventListener('click', hideCommentWrapper);
+
+    input.rows = '2';
+    input.cols = '40';
+    input.maxLength = '128';
     wrapper.setAttribute('class', 'comment_wrapper');
     input.setAttribute('class', 'comments');
+    hide.setAttribute('class', 'hide_comments');
     wrapper.appendChild(input);
+    wrapper.appendChild(hide);
     wrapper.appendChild(send);
-    post.insertBefore(wrapper, post.children[2]);
-    event.target.style.display = 'none';
+    post.insertBefore(wrapper, post.children[3]);
 }
 
-function addImage(src, id)
+function addImage(src, id, rate)
 {
     var gallery = document.getElementById('gallery');
     var post = document.createElement('div');
     var image = document.createElement('img');
+    var likeSection = document.createElement('div');
     var commentButoon = document.createElement('input');
+    var likeButton = document.createElement('input');
     var comment_section = document.createElement('div');
     var addComment = document.createElement('input');
-
+    var like_src = 'like ' + rate;
 
     image.src = src;
     post.className = 'posts';
@@ -127,7 +146,14 @@ function addImage(src, id)
     addComment.type = 'button';
     addComment.value = 'add comment';
     addComment.setAttribute('class', 'add_comment');
-    addComment.addEventListener('click',postComment);
+    addComment.addEventListener('click', postComment);
+    likeButton.type = 'button';
+    likeButton.value = like_src;
+    likeButton.addEventListener('click', ratePost);
+    likeButton.className = 'like';
+    likeSection.className = 'like_section';
+    likeSection.appendChild(addComment);
+    likeSection.appendChild(likeButton);
     commentButoon.value = 'show comments';
     commentButoon.setAttribute('class', 'show_comments');
     commentButoon.addEventListener('click', displayComments);
@@ -135,7 +161,8 @@ function addImage(src, id)
     comment_section.setAttribute('class', 'comment_section');
     post.appendChild(image);
     post.appendChild(document.createElement('hr'));
-    post.appendChild(addComment);
+    post.appendChild(likeSection);
+    post.appendChild(document.createElement('hr'));
     post.appendChild(commentButoon);
     post.appendChild(comment_section);
     gallery.appendChild(post);
@@ -157,7 +184,7 @@ function placePosts() {
            if (server.response)
            for (var i = 0; i < server.response.length; i++)
            {
-               addImage(server.response[i].src, server.response[i].id);
+               addImage(server.response[i].src, server.response[i].id, server.response[i].rate);
            }
        }
     });
@@ -183,3 +210,4 @@ function displayError(msg)
         error.style.display = 'none';
     }, 2000);
 }
+

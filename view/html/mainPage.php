@@ -4,22 +4,27 @@
     <meta charset="UTF-8">
     <title>Camagru</title>
     <link rel="stylesheet" type="text/css" href="view/css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="view/css/header.css">
+    <link rel="stylesheet" type="text/css" href="view/css/footer.css">
+
+
 </head>
 
 <body>
 
-<div id="main-wrapper">
-    <?php include(root . "/view/html/header.php") ?>
+<?php include(root . "/view/html/header.php") ?>
 
-<div id="content">
+<a name="header"></a>
+
+<div id="main-wrapper">
     <div id="error"></div>
-    <div id="gallery">
-        <div id="more_button" onclick="placePosts()">show more</div>
+    <div id="content_main">
+        <div id="to_header"><a href="#header">&#8648;</a></div>
+        <div id="gallery">
+        </div>
+        <div id="more_button" onclick="placePosts()"><span>&#8650</span></div>
     </div>
 
-</div>
-
-    <?php include(root . "/view/html/footer.php") ?>
 
 </div>
 
@@ -27,5 +32,6 @@
 
 <script src="view/js/mainPage.js"></script>
 <script src="view/js/header.js"></script>
+<script src="view/js/utilMain.js"></script>
 
 </html>

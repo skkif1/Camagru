@@ -1,4 +1,5 @@
 window.onload = function () {
+    checkLogin();
     var template = document.getElementById('template');
 
     template.addEventListener('mousedown', moveTemplate);
@@ -14,6 +15,7 @@ window.onload = function () {
     }
 
     var templates = document.getElementsByClassName('template_img');
+
     for (var i = 0; i < templates.length; i++)
         templates[i].addEventListener('click', addTemplate);
 
@@ -21,6 +23,7 @@ window.onload = function () {
 
     for (var i = 0; i < templateContents.length; i++)
         templateContents[i].addEventListener('click', display);
+
 };
 
 
@@ -36,7 +39,6 @@ function backToVideo() {
 }
 
 //upload photo from local
-
 function placeImage(input) {
     var backToCamera = document.getElementById('back');
     var upload_image = document.createElement('img');
@@ -207,6 +209,8 @@ function addTemplate(event) {
     var snap = document.getElementById('snap');
     template.setAttribute('src', img.src);
     template.style.display = 'block';
+    template.style.left = '50px';
+    template.style.top = '50px';
     snap.addEventListener('click', makePhoto);
     snap.style.opacity = '1';
 }

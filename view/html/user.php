@@ -10,6 +10,7 @@
     <link rel='stylesheet' type='text/css' href="view/css/footer.css">
     <link rel='stylesheet' type='text/css' href="view/css/user.css">
 
+    <script src="view/js/header.js"></script>
     <script src="view/js/user.js"></script>
     <script src="view/js/category.js"></script>
     <script src="view/js/template_nav.js"></script>
@@ -34,11 +35,11 @@
             </div>
 
             <div id="template_nav">
-                <div id="height_up" onclick="changeHeight(1)">up</div>
-                <div id="height_down" onclick="changeHeight(2)">down</div>
-                <div id="width_up" onclick="changeWidth(1)">up</div>
-                <div id="width_down" onclick="changeWidth(2)">down</div>
-                <div id="hide" onclick="hideTemplate()">hide</div>
+                <div class="template_nav_butt" id="height_up" onclick="changeHeight(1)">&uarr;</div>
+                <div class="template_nav_butt" id="height_down" onclick="changeHeight(2)">&darr;</div>
+                <div class="template_nav_butt" id="width_up" onclick="changeWidth(1)">&rarr;</div>
+                <div class="template_nav_butt" id="width_down" onclick="changeWidth(2)">&larr;</div>
+                <div class="template_nav_butt" id="hide" onclick="hideTemplate()">X</div>
             </div>
             <div id="video_buttons">
 
