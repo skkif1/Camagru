@@ -2,6 +2,7 @@
 
 require_once (root . "/DAO/PhotoImpl.php");
 require_once (root . "/DAO/MessageImpl.php");
+require_once (root . "/DAO/UserImpl.php");
 require_once (root . "/Entity/Message.php");
 require_once (root . "/DAO/RateImpl.php");
 
@@ -17,6 +18,7 @@ class MainPageManager
     public function saveComment($request)
     {
       $mysql = new MessageImpl();
+      $mysqlUser = new UserImpl();
 
       if (!isset($_SESSION['login']))
             return 'logout';
@@ -25,6 +27,8 @@ class MainPageManager
       $message = new Message(0, $request['text'], $user->getLogin(), $request['id']);
       $mysql->saveMessage($message);
       $res = array('user' => $user->getLogin(), 'message' => $message->getText());
+      $user = $mysqlUser->getUserbyPhoto($request['id']);
+      $this->sendNotyfication($user);
       return $res;
     }
 
@@ -64,4 +68,10 @@ class MainPageManager
         return $res;
     }
 
+    private function sendNotyfication(User $user)
+    {
+        $message = "<html><a href='http://localhost:8080/Camagru/>'>someone comment your photo on Camagru</a><br>";
+        $sender = new EmailSender($user->getEmail(), "You have new comment", $message);
+        $sender->sendEmail();
+    }
 }
