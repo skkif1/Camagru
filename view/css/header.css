@@ -28,6 +28,11 @@ header img {
     cursor: pointer;
 }
 
+#acount
+{
+    display: none;
+}
+
 #logout, #main_page
 {
     color: rgb(255,255,255);

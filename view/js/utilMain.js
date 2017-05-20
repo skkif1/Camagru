@@ -16,8 +16,9 @@ function ratePost(event)
         if (this.readyState == 4 && this.status == 200) {
             var server = JSON.parse(this.responseText);
 
-            if (server.response == 'updated') {
-                ;
+            if (server.response == 'logout') {
+                displayError("you need to be log in to rate photo");
+                return ;
             }
             event.target.value = "like " + server.response.rate;
         }

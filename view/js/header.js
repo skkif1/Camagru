@@ -21,6 +21,7 @@ function toAcount()
 }
 
 function logout() {
+
     data = {
       name:'Logout'
     };
@@ -35,6 +36,7 @@ function logout() {
     };
     request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     request.send(JSON.stringify(data));
+    window.location.href = "/Camagru/";
     checkLogin();
 }
 
@@ -56,9 +58,15 @@ function checkLogin()
             if (server.response != 'false')
             {
                 acount.innerHTML = server.response;
+                acount.style.display = 'flex';
             }else
             {
-                logout.style.display = 'none';
+                logout.innerHTML = 'Log in';
+                logout.style.background = 'white';
+                logout.style.color = 'black';
+                logout.addEventListener('click', function () {
+                  window.location.href = '/Camagru/login'
+                });
                 acount.style.display = 'none';
             }
         }
@@ -67,7 +75,7 @@ function checkLogin()
     request.send(JSON.stringify(data));
 }
 
-function sendAjaxUser(dataSend, callback,)
+function sendAjaxUser(dataSend, callback)
 {
     request = new XMLHttpRequest();
     var data = dataSend;

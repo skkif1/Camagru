@@ -46,10 +46,19 @@ function placeImage(input) {
     var real_video = document.getElementById('video');
     var reader = new FileReader();
 
+    console.log(input.files[0]);
+
+    if(input.files[0].size > 2000000 || (input.files[0].type != 'image/jpeg' && input.files[0].type != 'image/png'))
+    {
+        displayError("you can upload files png/jpeg with max size 2M");
+            return ;
+    }
+
     backToCamera.style.opacity = '1';
     backToCamera.addEventListener('click', backToVideo);
 
     reader.onload = function (load) {
+        console.log(load.target.name);
         real_video.setAttribute('id', 'temp');
         var dataUrl = load.target.result;
         upload_image.src = dataUrl;
@@ -213,4 +222,14 @@ function addTemplate(event) {
     template.style.top = '50px';
     snap.addEventListener('click', makePhoto);
     snap.style.opacity = '1';
+}
+
+function displayError(msg)
+{
+    var error = document.getElementById('user_error');
+    error.innerHTML = msg;
+    error.style.display = 'flex';
+    setTimeout(function () {
+        error.style.display = 'none';
+    }, 4000);
 }

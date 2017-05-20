@@ -5,6 +5,7 @@
 
     <title>Make your photo</title>
 
+
     <link rel='stylesheet' type='text/css' href="view/css/login.css">
     <link rel='stylesheet' type='text/css' href="view/css/header.css">
     <link rel='stylesheet' type='text/css' href="view/css/footer.css">
@@ -19,8 +20,8 @@
 <body>
 
 <?php include root . "/view/html/header.php" ?>
-
 <div id="wrapper">
+    <div id="user_error"></div>
 
     <div id="video_content">
 

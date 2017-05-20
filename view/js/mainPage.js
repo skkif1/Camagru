@@ -1,5 +1,6 @@
 window.onload = function () {
 
+    checkLogin();
     placePosts();
 };
 
@@ -7,11 +8,11 @@ var comment_display = 0;
 
 function sendMessage()
 {
-    var post = document.getElementById(this.parentNode.parentNode.id);
+    var post = this.parentNode.parentNode;
     var input = post.getElementsByClassName('comments')[0];
 
     if (input.value == '')
-        alert("em");
+        return ;
 
     data = {
         action:'message',
@@ -24,8 +25,11 @@ function sendMessage()
             {
                 var server = JSON.parse(this.responseText);
                 if (server.response != 'logout')
-                    addComment(post, server.response.message, server.response.user);
-                else
+                {
+                    if(post.getElementsByClassName('show_comments')[0].value != 'show comments')
+                        post.getElementsByClassName('show_comments')[0].click();
+                    post.getElementsByClassName('show_comments')[0].click();
+                }else
                     displayError("you need to be log in to comment this photo");
 
                 var comment = post.getElementsByClassName('comment_wrapper')[0];
@@ -59,10 +63,27 @@ function displayComments(event)
             }
         }
     });
+
     var button = post.getElementsByClassName('show_comments')[0];
     button.value = "hide comments";
     button.removeEventListener('click', displayComments);
     button.addEventListener('click', hideComments);
+}
+
+function addComment(post, message, login)
+{
+    var user = document.createElement('div');
+    var comment = document.createElement('div');
+    var comment_wrapper = document.createElement('div');
+
+    user.innerHTML = login;
+    user.className = 'login';
+    comment.innerHTML = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    comment.className = 'message';
+    comment_wrapper.appendChild(user);
+    comment_wrapper.appendChild(comment);
+    var comments_section = post.getElementsByClassName('comment_section')[0];
+    comments_section.insertBefore(comment_wrapper, comments_section.firstChild);
 }
 
 
@@ -81,21 +102,6 @@ function hideComments(event) {
 
 }
 
-function addComment(post, message, login)
-{
-    var user = document.createElement('div');
-    var comment = document.createElement('div');
-    var comment_wrapper = document.createElement('div');
-
-    user.innerHTML = login;
-    user.className = 'login';
-    comment.innerHTML = message;
-    comment.className = 'message';
-    comment_wrapper.appendChild(user);
-    comment_wrapper.appendChild(comment);
-    var comments_section = post.getElementsByClassName('comment_section')[0];
-    comments_section.insertBefore(comment_wrapper, comments_section.firstChild);
-}
 
 function postComment(event)
 {
@@ -208,6 +214,5 @@ function displayError(msg)
     error.style.display = 'block';
     setTimeout(function () {
         error.style.display = 'none';
-    }, 2000);
+    }, 4000);
 }
-

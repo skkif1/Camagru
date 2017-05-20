@@ -24,8 +24,6 @@
         </div>
         <div id="more_button" onclick="placePosts()"><span>&#8650</span></div>
     </div>
-
-
 </div>
 
 </body>
