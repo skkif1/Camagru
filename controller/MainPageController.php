@@ -27,12 +27,19 @@ class MainPageController
                   $response = $action->getComments($request);
                   $response = array('response' => $response);
                   break;
+                case 'rate':
+                  $response = $action->ratePost($request);
+                  $response = array('response' => $response);
+                  break;
+                case 'getRate':
+                  $response = $action->getRate($request);
+                  $response = array('response' => $response);
+                  break;
             }
         }else
         {
             require_once(root . "/view/html/mainPage.php");
         }
-
         if ($response)
         {
             header('Content-type: application/json');

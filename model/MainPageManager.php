@@ -3,6 +3,7 @@
 require_once (root . "/DAO/PhotoImpl.php");
 require_once (root . "/DAO/MessageImpl.php");
 require_once (root . "/Entity/Message.php");
+require_once (root . "/DAO/RateImpl.php");
 
 class MainPageManager
 {
@@ -31,6 +32,35 @@ class MainPageManager
     {
         $mysql = new MessageImpl();
         $res = $mysql->getMessages($request['id']);
+        return $res;
+    }
+
+    public function ratePost($request)
+    {
+        if (isset($_SESSION['login']))
+        {
+            $mysqlRate = new RateImpl();
+            $mysql = new PhotoImpl();
+            $ifExist = $mysqlRate->checkRate($request['id'], $_SESSION['login']->getId());
+            if(!$ifExist)
+            {
+                $mysqlRate->updateRate($request['id'], $_SESSION['login']->getId());
+                $mysql->RatePhoto($request['id']);
+            }else
+            {
+                $mysqlRate->deleteRate($request['id'], $_SESSION['login']->getId());
+                $mysql->RatePhotoDec($request['id']);
+            }
+            $count = $mysql->getRatePhoto($request['id']);
+            return $count;
+        }
+        return 'logout';
+    }
+
+    public function getRate($request)
+    {
+        $mysql = new PhotoImpl();
+        $res = $mysql->getRatePhoto($request['post']);
         return $res;
     }
 

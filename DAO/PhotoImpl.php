@@ -43,12 +43,35 @@ class PhotoImpl implements PhotoDao
     public function getAllPhoto($offset)
     {
         $photos = null;
-        $stm = $this->connection->prepare("SELECT src, id FROM photo ORDER BY creation_date LIMIT 3 OFFSET $offset");
+        $stm = $this->connection->prepare("SELECT src, id, rate FROM photo ORDER BY creation_date LIMIT 3 OFFSET $offset");
         $stm->execute();
         while($rs = $stm->fetch(PDO::FETCH_ASSOC))
         {
             $photos[] = $rs;
         }
         return $photos;
+    }
+
+    public function RatePhoto($id)
+    {
+        $stm = $this->connection->prepare("UPDATE photo SET rate = rate + 1 WHERE id = ?");
+        $stm->execute(array($id));
+        return 1;
+    }
+
+    public function RatePhotoDec($id)
+    {
+        $stm = $this->connection->prepare("UPDATE photo SET rate = rate - 1 WHERE id = ?");
+        $stm->execute(array($id));
+        return 1;
+    }
+
+
+    public function getRatePhoto($id)
+    {
+        $stm = $this->connection->prepare("SELECT rate FROM photo WHERE id = $id");
+        $stm->execute(array($id));
+        $rs = $stm->fetch(PDO::FETCH_ASSOC);
+        return $rs;
     }
 }
