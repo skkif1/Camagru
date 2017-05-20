@@ -1,9 +1,8 @@
 <?php
 
-require_once (root . "/DAO/PhotoDao.php");
 require_once (root . "/Entity/Photo.php");
 
-class PhotoImpl implements PhotoDao
+class PhotoImpl
 {
 
     private $connection;

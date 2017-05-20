@@ -1,10 +1,9 @@
 <?php
 
-require_once (root . "/DAO/UserDao.php");
 require_once (root . "/DAO/MySqlConnection.php");
 require_once (root . "/Entity/User.php");
 
-class UserImpl implements UserDao
+class UserImpl
 {
 
     private $connection;
@@ -42,6 +41,18 @@ class UserImpl implements UserDao
         $user = new User($rs['email'], $rs['password'], $rs['login'], $rs['id']);
         $user->setHash($rs['hash']);
         $user->setConfirm($rs['confirm']);
+        return $user;
+    }
+
+    public function getUserbyPhoto($photoId)
+    {
+        $stm = $this->connection->prepare("select * from user WHERE (SELECT photo.user_id FROM photo WHERE photo.id = ?)");
+        $stm->execute(array($photoId));
+
+        if (!$rs = $stm->fetch(PDO::FETCH_ASSOC))
+            throw new InvalidArgumentException("Invalid login");
+
+        $user = new User($rs['email'], $rs['password'], $rs['login'], $rs['id']);
         return $user;
     }
 
