@@ -24,3 +24,8 @@ function ratePost(event)
         }
     })
 }
+
+function toHeader()
+{
+    window.location.href = '#header';
+}

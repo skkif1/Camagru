@@ -26,7 +26,7 @@
 </style>
 <body>
 <div id="header"></div>
-<div id="content"><h1>Sory we have a problem on server. Try again Later</h1></div>
+<div id="content"><h1>Sorry we have a problem on server. Try again Later</h1></div>
 <footer id="footer"></footer>
 </body>
 </html>

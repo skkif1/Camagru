@@ -51,7 +51,7 @@ function signUpUser()
                 failSignUp("main_status", "we have problems on server try again later");
                 break;
             case 'login':
-                window.location.replace('http://localhost:8080/Camagru/');
+                window.location.replace('http://10.111.7.2:8080/Camagru/');
                 break;
             case 'false':
                 failSignUp("main_status", "no such user registered");

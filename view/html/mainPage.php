@@ -19,10 +19,10 @@
 <div id="main-wrapper">
     <div id="error"></div>
     <div id="content_main">
-        <div id="to_header"><a href="#header">&#8648;</a></div>
+        <div id="to_header" onclick="toHeader()"></div>
         <div id="gallery">
         </div>
-        <div id="more_button" onclick="placePosts()"><span>&#8650</span></div>
+        <div id="more_button" onclick="placePosts()"></div>
     </div>
 </div>
 

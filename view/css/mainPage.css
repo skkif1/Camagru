@@ -98,6 +98,14 @@ hr
 .show_comments
 {
     order: 100;
+    cursor: pointer;
+    transition: background 0.5s, border-radius 0.5s;
+}
+
+.show_comments:hover
+{
+    background: #3776EA;
+    border-radius: 10px;
 }
 
 .login

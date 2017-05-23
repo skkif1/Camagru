@@ -1,5 +1,6 @@
 footer
 {
     background:  #3776EA;
-    flex-basis: 10%;
+    height: 2%;
+    bottom: 1px;
 }

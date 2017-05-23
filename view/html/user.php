@@ -31,7 +31,7 @@
 
                 <img id="template">
 
-                <video poster="img/no-photo.png" id="video" autoplay></video>
+                <video poster="img/no-photo.png" id="video" height="480" width="640" autoplay></video>
 
             </div>
 
@@ -89,6 +89,12 @@
         <div class="template_menu" id="other">other</div>
         <div class="category_content" id="category_other">
             <img class="template_img" src="img/other/1.png" width="100" height="100">
+            <img class="template_img" src="img/other/2.png" width="100" height="100">
+            <img class="template_img" src="img/other/3.png" width="100" height="100">
+            <img class="template_img" src="img/other/4.png" width="100" height="100">
+            <img class="template_img" src="img/other/5.png" width="100" height="100">
+            <img class="template_img" src="img/other/6.png" width="100" height="100">
+            <img class="template_img" src="img/other/7.png" width="100" height="100">
         </div>
 
     </div>

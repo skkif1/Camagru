@@ -15,6 +15,7 @@ header img {
     flex-grow: 1;
     display: flex;
     justify-content: flex-end;
+    margin-right: 10px;
 }
 
 .navigator
@@ -26,6 +27,13 @@ header img {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: transform 0.5s, border-radius 0.5s;
+}
+
+.navigator:hover
+{
+    transform: scale(1.2);
+    border-radius: 10px;
 }
 
 #acount
@@ -37,4 +45,5 @@ header img {
 {
     color: rgb(255,255,255);
     background-color: #3776EA;
+    margin-left: 10px;
 }

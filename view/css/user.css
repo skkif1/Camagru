@@ -9,7 +9,6 @@ body
     background:#EDEEF0;
     display: flex;
     justify-content: space-around;
-    flex-grow: 2;
     height: 100%;
 }
 
@@ -58,6 +57,11 @@ body
     padding: 2px;
 }
 
+#video
+{
+    max-width: 640px;
+}
+
 .video_nav
 {
     background: #3776EA;
@@ -67,6 +71,13 @@ body
     padding: 2px;
     box-sizing: border-box;
     border-radius: 5px;
+    transition: opacity 0.5s;
+    cursor: pointer;
+}
+
+.video_nav:hover
+{
+    opacity: 0.7;
 }
 
 #upload_button
@@ -86,14 +97,16 @@ body
 {
     text-align: center;
     flex-basis: 25%;
-}
-
-.template_nav_butt
-{
     background: #3776EA;
     margin: 0 2px;
+    cursor: pointer;
+    transition: opacity 0.5s;
 }
 
+.template_nav_butt:hover
+{
+    opacity: 0.7;
+}
 
 .preview_nav
 {
@@ -102,6 +115,13 @@ body
     margin: 2px 0;
     padding: 2px;
     border-radius: 5px;
+    transition: opacity 0.5s;
+    cursor: pointer;
+}
+
+.preview_nav:hover
+{
+    opacity: 0.7;
 }
 
 #template_gallery
@@ -121,7 +141,15 @@ body
     background: #3776EA;
     text-align: center;
     border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.5s;
 }
+.template_menu:hover
+{
+    opacity: 0.7;
+}
+
+
 
 .category_content
 {
@@ -165,6 +193,7 @@ body
     padding: 5px;
     opacity: 0.3;
     transition: opacity 0.2s;
+    cursor: pointer;
 }
 
 .dell_button:hover
@@ -179,6 +208,17 @@ body
     height:50px;
     display: none;
     z-index: 1;
+}
+
+.template_img
+{
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+.template_img:hover
+{
+    transform: scale(1.2);
 }
 
 #temp

@@ -182,18 +182,17 @@ function placePosts() {
         action:'all',
         offset: gallery.childElementCount
     };
-
-    sendAjaxMain(data, function () {
-       if (this.readyState == 4 && this.status == 200)
-       {
-           var server = JSON.parse(this.responseText);
-           if (server.response)
-           for (var i = 0; i < server.response.length; i++)
-           {
-               addImage(server.response[i].src, server.response[i].id, server.response[i].rate);
-           }
-       }
-    });
+        sendAjaxMain(data, function () {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                var server = JSON.parse(this.responseText);
+                if (server.response)
+                    for (var i = 0; i < server.response.length; i++)
+                    {
+                        addImage(server.response[i].src, server.response[i].id, server.response[i].rate);
+                    }
+            }
+        });
 }
 
 
