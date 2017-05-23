@@ -131,7 +131,7 @@ class Authorization
 
     private function sendConfirmation(User $user)
     {
-        $message = "<html><a href='http://localhost:8080/Camagru/login?confirm=yes&email="
+        $message = "<html><a href='http://10.111.7.2:8080/Camagru/login?confirm=yes&email="
             . $user->getEmail() . "&hash="
             . $user->getHash()
             . "'> confirm your email on Camagru</a><br></html>";
