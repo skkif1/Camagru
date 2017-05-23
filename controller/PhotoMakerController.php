@@ -14,26 +14,31 @@ class PhotoMakerController
 
         if(isset($request['action']))
         {
-            switch ($request['action'])
+            try {
+                switch ($request['action']) {
+                    case 'check';
+                        $responses = $action->checkLogin();
+                        $responses = array('response' => $responses);
+                        break;
+                    case 'save':
+                        $responses = $action->savePhoto($request);
+                        $responses = array('response' => $responses);
+                        break;
+                    case 'getFotos':
+                        $responses = $action->getUsersPhoto($request);
+                        $responses = array('response' => $responses);
+                        break;
+                    case 'remove':
+                        $responses = $action->removePhoto($request);
+                        $responses = array('response' => $responses);
+                        break;
+                    default:
+                        $responses = array('response', '404');
+                }
+            }catch (Exception $ex)
             {
-                case 'check';
-                    $responses = $action->checkLogin();
-                    $responses = array('response' => $responses);
-                    break ;
-                case 'save':
-                    $responses = $action->savePhoto($request);
-                    $responses = array('response' => $responses);
-                    break ;
-                case 'getFotos':
-                    $responses = $action->getUsersPhoto($request);
-                    $responses = array('response' => $responses);
-                    break ;
-                case 'remove':
-                    $responses = $action->removePhoto($request);
-                    $responses = array('response' => $responses);
-                    break ;
-                default:
-                  $responses = array('response', '404');
+                require_once (root . "/view/html/problem.php");
+                die();
             }
         }else
         {
@@ -42,7 +47,7 @@ class PhotoMakerController
                 require_once(root . "/view/html/user.php");
                 return ;
             }
-            require_once (root . '/view/html/error.php');
+            require_once (root . '/view/html/404.php');
         }
         if ($responses)
         {

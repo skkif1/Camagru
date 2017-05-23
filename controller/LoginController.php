@@ -13,35 +13,40 @@ class LoginController
 
         if (isset($request['name']))
         {
-            switch ($request['name'])
+            try {
+                switch ($request['name']) {
+                    case 'signUp':
+                        $user = new User($request['email'], $request['password'], $request['login']);
+                        $res = $action->signUp($user);
+                        $responses = array('response' => $res);
+                        break;
+                    case 'Change password':
+                        $responses = $action->changePassword($request);
+                        $responses = array("response" => $responses);
+                        break;
+                    case 'Reset password':
+                        $responses = $action->restorePassword($request);
+                        $responses = array("response" => $responses);
+                        break;
+                    case 'Login':
+                        $responses = $action->checkLogin($request);
+                        $responses = array('response' => $responses);
+                        break;
+                    case 'Logout':
+                        $responses = $action->logout();
+                        $responses = array('response' => $responses);
+                        break;
+                    case 'Check':
+                        $responses = $action->IsLogged();
+                        $responses = array('response' => $responses);
+                        break;
+                    default:
+                        $responses = array('response' => '404 Login');
+                }
+            }catch (Exception $ex)
             {
-                case 'signUp':
-                    $user = new User($request['email'], $request['password'], $request['login']);
-                    $res = $action->signUp($user);
-                    $responses = array('response' => $res);
-                break ;
-                case 'Change password':
-                    $responses = $action->changePassword($request);
-                    $responses = array("response" => $responses);
-                    break ;
-                case 'Reset password':
-                    $responses = $action->restorePassword($request);
-                    $responses = array("response" => $responses);
-                    break ;
-                case 'Login':
-                    $responses = $action->checkLogin($request);
-                    $responses = array('response' => $responses);
-                    break ;
-                case 'Logout':
-                    $responses = $action->logout();
-                    $responses = array('response' => $responses);
-                    break ;
-                case 'Check':
-                    $responses = $action->IsLogged();
-                    $responses = array('response' => $responses);
-                    break ;
-                default:
-                    $responses = array('response' => '404 Login');
+                require_once (root . "/view/html/problem.php");
+                die();
             }
         }else
             if(isset($_GET['confirm']) && $_GET['confirm'] == 'yes')
