@@ -42,7 +42,7 @@ class PhotoImpl
     public function getAllPhoto($offset)
     {
         $photos = null;
-        $stm = $this->connection->prepare("SELECT src, id, rate FROM photo ORDER BY creation_date LIMIT 3 OFFSET $offset");
+        $stm = $this->connection->prepare("SELECT src, id, rate FROM photo ORDER BY creation_date DESC LIMIT 3 OFFSET $offset");
         $stm->execute();
         while($rs = $stm->fetch(PDO::FETCH_ASSOC))
         {
